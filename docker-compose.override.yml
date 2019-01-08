@@ -1,0 +1,6 @@
+version: '2.1'
+
+services:
+ onix.kr.ua:
+  ports:
+   - 80:80

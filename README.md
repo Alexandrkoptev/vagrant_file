@@ -6,11 +6,11 @@
 
 3 clone repository onix.kr.ua
 
-
-4 copy in folder onix.kr.ua file - docker-compose.override.yml, .env.default, onixkrua_dump
-
-
-5 copy in folder vagrant file - Vagrantfile
+4 rename sqldump - mv sqldump dump.sql 
 
 
-6 Run vagrant up
+4 copy in folder onix.kr.ua file - docker-compose.vagrant.yml, .env.default01, dump.sql, Vagrantfile
+
+
+
+5 Run vagrant up

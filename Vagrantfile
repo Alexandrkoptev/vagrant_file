@@ -54,6 +54,9 @@ Vagrant.configure("2") do |config|
       echo "mysql -udbuser -pdbpassword dbname < /db_dumps/dump.sql" | docker-compose exec -T mysql56 bash
       docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d
       echo "cd /var/www/html/wp-content/themes/onix-ua/; npm install" | docker-compose exec -T onix.kr.ua bash
+      echo "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" | docker-compose exec -T onix.kr.ua bash
+      echo "chmod +x wp-cli.phar; mv wp-cli.phar /usr/local/bin/wp" | docker-compose exec -T onix.kr.ua bash
+      echo "wp --info" | docker-compose exec -T onix.kr.ua bash
 
     SHELL
 end

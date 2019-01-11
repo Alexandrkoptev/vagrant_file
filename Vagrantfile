@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
   # config.vm.box_check_update = false
 
       config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+      config.vm.network "forwarded_port", guest: 443, host: 443, host_ip: "127.0.0.1"
 
     #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
@@ -38,7 +39,7 @@ Vagrant.configure("2") do |config|
       curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
       chmod +x /usr/local/bin/docker-compose
       apt update
-      cd /home/vagrant/onix.kr.ua/
+      cd /home/vagrant/
       mv dump.sql /home/vagrant/mysql/db_dumps/dump.sql
       chmod +x ./docker-php-pre-entrypoint
       mv .env.default01 .env
@@ -52,7 +53,7 @@ Vagrant.configure("2") do |config|
       docker-compose exec -T mysql56 /usr/bin/mysql -u root -e "FLUSH PRIVILEGES;"
       docker-compose exec -T mysql56 /usr/bin/mysql -u root -e "SHOW DATABASES;"
       echo "mysql -udbuser -pdbpassword dbname < /db_dumps/dump.sql" | docker-compose exec -T mysql56 bash
-      docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml up -d
+      docker-compose -f docker-compose.yml -f docker-compose.vagrant.yml -f docker-compose.traefik.yml up -d
       echo "cd /var/www/html/wp-content/themes/onix-ua/; npm install" | docker-compose exec -T onix.kr.ua bash
       echo "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" | docker-compose exec -T onix.kr.ua bash
       echo "chmod +x wp-cli.phar; mv wp-cli.phar /usr/local/bin/wp" | docker-compose exec -T onix.kr.ua bash

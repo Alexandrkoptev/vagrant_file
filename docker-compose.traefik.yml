@@ -1,0 +1,20 @@
+version: '2.1'
+
+services:
+  traefik:
+    image: traefik
+    container_name: traefik
+    networks:
+      - webgateway
+    ports:
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ./tls:/tls
+    restart: unless-stopped
+
+networks:
+  webgateway:
+    driver: bridge
